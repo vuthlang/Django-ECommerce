@@ -13,3 +13,11 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
+
+
+class Cart(models.Model):
+    products = models.ManyToManyField(Product)
+    # ...
+
+    def __str__(self):
+        return f"Cart {self.id}"
