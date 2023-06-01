@@ -57,40 +57,52 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                <div class="card border-0 shadow rounded-3 my-5">
-                    <div class="card-body p-4 p-sm-5">
-                        <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
-                        {% if messages %}
-                        <ul class="messages">
-                            {% for message in messages %}
-                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                        
-                        <form method="post">
-                            {% csrf_token %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div class="card border-0 shadow rounded-3 my-5">
+                        <div class="card-body p-4 p-sm-5">
+                            <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
 
-                            <div class="form-floating mb-3">
-                            <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="Username">
-                            <label for="floatingUsername">Username</label>
+                            <div class="mb-3">
+                                <label for="id_username" class="form-label">Username:</label>
+                                <input type="text" name="username" class="form-control" maxlength="150"
+                                    autocapitalize="none" autocomplete="username" autofocus required id="id_username">
+                                <span class="form-text">Required. 150 characters or fewer. Letters, digits, and
+                                    @/./+/-/_ only.</span>
                             </div>
-                            <div class="form-floating mb-3">
-                            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Password</label>
+
+                            <div class="mb-3">
+                                <label for="id_password1" class="form-label">Password:</label>
+                                <input type="password" name="password1" class="form-control" autocomplete="new-password"
+                                    required id="id_password1">
+                                <ul class="form-text">
+                                    <li>Your password can’t be too similar to your other personal information.</li>
+                                    <li>Your password must contain at least 8 characters.</li>
+                                    <li>Your password can’t be a commonly used password.</li>
+                                    <li>Your password can’t be entirely numeric.</li>
+                                </ul>
                             </div>
-                        <div class="d-grid">
-                            <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign in</button>
+
+                            <div class="mb-3">
+                                <label for="id_password2" class="form-label">Password confirmation:</label>
+                                <input type="password" name="password2" class="form-control" autocomplete="new-password"
+                                    required id="id_password2">
+                                <span class="form-text">Enter the same password as before, for verification.</span>
+                            </div>
+
+                            <input type="submit" value="Submit" class="btn btn-primary">
+
+                            <h3>Already Have an Account??</h3>
+                            <a href="{% url 'login' %}">Sign In Here</a>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </body>
 
 </html>
