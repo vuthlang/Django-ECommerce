@@ -60,6 +60,40 @@ def add_to_cart(request, product_id):
     return redirect('cart')
 
 
+
+def add_to_cart_from_detail(request, product_id):
+
+      # Récupérer le produit à partir de son ID
+    product = get_object_or_404(Product, id=product_id)
+
+    # Vérifier si un panier existe déjà dans la session de l'utilisateur
+    if 'cart' not in request.session:
+        request.session['cart'] = {}
+
+    cart = request.session['cart']
+
+    # Vérifier si le produit est déjà dans le panier
+    if product_id in cart:
+        # Si oui, augmenter la quantité du produit dans le panier
+        cart[product_id]['quantity'] += 1
+    else:
+        # Sinon, ajouter le produit au panier avec une quantité de 1
+        cart[product_id] = {
+            'quantity': 1,
+            'product_name': product.product_name,
+            'price': str(product.price)
+        }
+
+    # Enregistrer les modifications du panier dans la session
+    request.session['cart'] = cart
+
+    # Rediriger l'utilisateur vers la page cart.html après l'ajout du produit
+    return redirect('cart')
+
+
+
+
+
 def signup(request):
  
     if request.user.is_authenticated:
