@@ -32,7 +32,6 @@ def cart(request):
   return render(request, 'cart.html')
 
 
-
 def add_to_cart(request, product_id):
     # Récupérer le produit à partir de son ID
     product = get_object_or_404(Product, id=product_id)
@@ -60,8 +59,6 @@ def add_to_cart(request, product_id):
 
     # Rediriger l'utilisateur vers la page cart.html après l'ajout du produit
     return redirect('cart')
-
-
 
 
 
