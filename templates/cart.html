@@ -64,12 +64,37 @@
                           <th style="width:16%"></th>
                       </tr>
                   </thead>
-                  <tbody>
-                      
+                 <!-- cart.html -->
+<!-- ... -->
+<tbody>
+    {% for product_id, item in request.session.cart.items %}
+        <tr>
+            <td>{{ item.product_name }}</td>
+            <td>${{ item.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>
+                <!-- Bouton pour supprimer un élément du panier -->
+                <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart({{ product_id }})">
+                    <i class="bi bi-trash"></i> Supprimer
+                </button>
+                <!-- Contrôle de quantité -->
+                <div class="input-group input-group-sm mt-2">
+                    <button class="btn btn-outline-secondary" onclick="updateQuantity({{ product_id }}, -1)">
+                        <i class="bi bi-dash"></i>
+                    </button>
+                    <input type="number" class="form-control text-center" value="{{ item.quantity }}" readonly>
+                    <button class="btn btn-outline-secondary" onclick="updateQuantity({{ product_id }}, 1)">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
 
 
+<!-- ... -->
 
-                  </tbody>
               </table>
               <div class="float-right text-right">
                   <h4>Subtotal:</h4>
