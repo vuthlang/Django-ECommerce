@@ -19,7 +19,6 @@
 </head>
 
 <body>
-    <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="shop/">Start Bootstrap</a>
@@ -49,48 +48,45 @@
                         Cart
                         <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                     </a>
-                    <a href="login/" class="btn btn-outline-dark" style="margin-left: 20px;">
-                        Login
-                    </a>
                 </form>
             </div>
         </div>
     </nav>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                <div class="card border-0 shadow rounded-3 my-5">
-                    <div class="card-body p-4 p-sm-5">
-                        <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
-                        {% if messages %}
-                        <ul class="messages">
-                            {% for message in messages %}
-                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                        
-                        <form method="post">
-                            {% csrf_token %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div class="card border-0 shadow rounded-3 my-5">
+                        <div class="card-body p-4 p-sm-5">
+                            <h3 class="card-title text-center mb-5 fw-bold">Sign In</h3>
 
                             <div class="form-floating mb-3">
-                            <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="Username">
-                            <label for="floatingUsername">Username</label>
+                                <input type="text" name="username" class="form-control" id="floatingUsername"
+                                    placeholder="Username">
+                                <label for="floatingUsername">Username</label>
                             </div>
                             <div class="form-floating mb-3">
-                            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Password</label>
+                                <input type="password" name="password" class="form-control" id="floatingPassword"
+                                    placeholder="Password">
+                                <label for="floatingPassword">Password</label>
                             </div>
-                        <div class="d-grid">
-                            <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign in</button>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
+                                    in</button>
+                            </div>
+                            <div style="margin-top: 35px;">
+                                <h6>Dont have an account?</h6>
+                                <a href="{% url 'signup' %}">Sign Up Here</a>
+                            </div>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
+
 </body>
 
 </html>
