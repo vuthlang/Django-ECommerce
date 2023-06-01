@@ -81,7 +81,8 @@
                     </div>
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="product/{{ product.id }}">View options</a></div>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="product/{{ product.id }}">View options</a>
+                            <a class="btn btn-outline-dark mt-auto add-to-cart-btn" data-product-id="{{ product.id }}">Ajouter au panier</a></div>
                     </div>
                 </div>
             </div>
@@ -89,7 +90,37 @@
         </div>
     </div>
 </section>
-
+<script>
+    // Obtenez tous les boutons "Ajouter au panier"
+    const boutonsAjouterAuPanier = document.querySelectorAll('.add-to-cart-btn');
+  
+    // Attachez des écouteurs d'événements de clic à chaque bouton
+    boutonsAjouterAuPanier.forEach(bouton => {
+      bouton.addEventListener('click', ajouterAuPanier);
+    });
+  
+    // Fonction pour gérer le clic sur le bouton "Ajouter au panier"
+    function ajouterAuPanier(event) {
+      // Empêcher la soumission par défaut du formulaire
+      event.preventDefault();
+  
+      // Obtenez l'ID du produit à partir de l'attribut de données
+      const idProduit = event.target.dataset.productId;
+  
+      // Effectuez une requête AJAX pour ajouter le produit au panier
+      fetch(`/cart/${idProduit}`, { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+          // Mettre à jour le nombre d'articles dans le badge du panier
+          const badgePanier = document.querySelector('.badge');
+          badgePanier.textContent = data.nombreArticlesPanier;
+        })
+        .catch(error => {
+          console.error('Erreur :', error);
+        });
+    }
+  </script>
+  
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
