@@ -66,7 +66,26 @@
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </button>
+                            <script>
+                                function addToCart(productId) {
+                                    // Get the quantity input value
+                                    var quantityInput = document.getElementById('inputQuantity');
+                                    var quantity = quantityInput.value;
                             
+                                    // Send an AJAX request to add the product to the cart
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('POST', '/add-to-cart/', true);
+                                    xhr.setRequestHeader('Content-Type', 'application/json');
+                                    xhr.onreadystatechange = function () {
+                                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                                            // Product successfully added to the cart
+                                            // You can perform any additional actions here if needed
+                                            alert('Product added to cart!');
+                                        }
+                                    };
+                                    xhr.send(JSON.stringify({ productId: productId, quantity: quantity }));
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>
