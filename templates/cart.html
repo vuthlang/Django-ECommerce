@@ -66,31 +66,47 @@
                   </thead>
                  <!-- cart.html -->
 <!-- ... -->
+<!-- cart.html -->
+<!-- ... -->
+<!-- cart.html -->
+<!-- ... -->
 <tbody>
-    {% for product_id, item in request.session.cart.items %}
+    {% for item in cart_items %}
         <tr>
             <td>{{ item.product_name }}</td>
             <td>${{ item.price }}</td>
-            <td>{{ item.quantity }}</td>
             <td>
-                <!-- Bouton pour supprimer un élément du panier -->
-                <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart({{ product_id }})">
-                    <i class="bi bi-trash"></i> Supprimer
-                </button>
-                <!-- Contrôle de quantité -->
-                <div class="input-group input-group-sm mt-2">
-                    <button class="btn btn-outline-secondary" onclick="updateQuantity({{ product_id }}, -1)">
+                <form action= "update_quantity/{{ item.product_id }}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="decrease">
+                    <button type="submit" class="btn btn-link btn-sm">
                         <i class="bi bi-dash"></i>
                     </button>
-                    <input type="number" class="form-control text-center" value="{{ item.quantity }}" readonly>
-                    <button class="btn btn-outline-secondary" onclick="updateQuantity({{ product_id }}, 1)">
+                </form>
+                {{ item.quantity }}
+                <form action= "update_quantity/{{ item.product_id }}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="increase">
+                    <button type="submit" class="btn btn-link btn-sm">
                         <i class="bi bi-plus"></i>
                     </button>
-                </div>
+                </form>
+            </td>
+            <td>
+                <form action="remove_from_cart/{{ item.product_id }}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link btn-sm">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
             </td>
         </tr>
     {% endfor %}
 </tbody>
+<!-- ... -->
+
+<!-- ... -->
+
 
 
 <!-- ... -->

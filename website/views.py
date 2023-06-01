@@ -4,8 +4,6 @@ import json
 from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 
-# def index(request):
-# return HttpResponse("Hello, world. You're at the polls index.")
 
 
 from django.shortcuts import get_object_or_404, render
@@ -22,10 +20,10 @@ from website.models import CartItem, Product
 
 def index(request):
     
-      # Récupérer tous les produits de la base de données
+
     products = Product.objects.all()
 
-    # Passer les produits au template pour les afficher
+
     return render(request, 'index.html', {'products': products})
 
 def product_view(request, product_id):
@@ -41,35 +39,81 @@ def related_products(request):
 
 
 def cart(request):
-  return render(request, 'cart.html')
+    cart = request.session.get('cart', {})
+    cart_items = []
+
+    for product_id, item in cart.items():
+        product = get_object_or_404(Product, id=product_id)
+        total_price = item['quantity'] * product.price
+        cart_items.append({
+            'product_id': product_id,
+            'product_name': product.product_name,
+            'price': product.price,
+            'quantity': item['quantity'],
+            'total_price': total_price
+        })
+
+    context = {
+        'cart_items': cart_items
+    }
+
+    return render(request, 'cart.html', context)
+
 
 def add_to_cart(request, product_id):
-    # Récupérer le produit à partir de son ID
+
     product = get_object_or_404(Product, id=product_id)
 
-    # Vérifier si un panier existe déjà dans la session de l'utilisateur
     if 'cart' not in request.session:
         request.session['cart'] = {}
 
     cart = request.session['cart']
 
-    # Vérifier si le produit est déjà dans le panier
+
     if product_id in cart:
-        # Si oui, augmenter la quantité du produit dans le panier
+    
         cart[product_id]['quantity'] += 1
     else:
-        # Sinon, ajouter le produit au panier avec une quantité de 1
+       
         cart[product_id] = {
             'quantity': 1,
             'product_name': product.product_name,
             'price': str(product.price)
         }
 
-    # Enregistrer les modifications du panier dans la session
+    
     request.session['cart'] = cart
 
-    # Rediriger l'utilisateur vers la page cart.html après l'ajout du produit
     return redirect('cart')
+
+
+
+
+
+def remove_from_cart(request, product_id):
+   
+    cart = request.session.get('cart', {})
+
+    if product_id in cart:
+        del cart[product_id]
+       
+        request.session['cart'] = cart
+    return redirect('cart')
+
+def update_quantity(request, product_id):
+   
+    cart = request.session.get('cart', {})
+  
+    if product_id in cart:
+        
+        quantity = request.GET.get('quantity', 1)
+        cart[product_id]['quantity'] = int(quantity)
+     
+        request.session['cart'] = cart
+    return redirect('cart')
+
+
+
 
 
 def signup(request):
