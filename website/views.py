@@ -13,3 +13,7 @@ def index(request):
 
 def product_detail(request):
     return render(request, 'index_detail.html')
+
+
+def cart(request):
+    return render(request, 'cart.html')
