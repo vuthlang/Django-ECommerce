@@ -52,6 +52,11 @@
                     <a href="login/" class="btn btn-outline-dark" style="margin-left: 20px;">
                         Login
                     </a>
+                    {% if user.is_authenticated %}
+                    <a href="signout/" class="btn btn-outline-dark" style="margin-left: 20px;">
+                        Logout
+                    </a>
+                    {% endif %}
                 </form>
             </div>
         </div>
