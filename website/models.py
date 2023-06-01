@@ -2,7 +2,8 @@ from django.db import models
 
 
 class Product(models.Model):
-    product_name = models.CharField(max_length=200)
+    product_name = models.CharField(max_length=200, default='')
+    prix = models.CharField(max_length=200, default='')
     pub_date = models.DateTimeField("date published")
 
 
