@@ -21,26 +21,16 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="/shop/">Start Bootstrap</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                         class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/shop/">Home</a></li>
+
         
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li>
+                       
                     </ul>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
@@ -64,7 +54,7 @@
           <div class="col-lg-12 col-md-12 col-12">
               <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
               <p class="mb-5 text-center">
-                  <i class="text-info font-weight-bold">3</i> items in your cart</p>
+                  <i class="text-info font-weight-bold"> items in your cart</p>
               <table id="shoppingCart" class="table table-condensed table-responsive">
                   <thead>
                       <tr>
@@ -77,7 +67,7 @@
                  <!-- cart.html -->
 <!-- ... -->
 <tbody>
-    {% for product_id, item in request.session.cart.items %}
+ 
         <tr>
             <td>{{ item.product_name }}</td>
             <td>${{ item.price }}</td>
@@ -99,7 +89,7 @@
                 </div>
             </td>
         </tr>
-    {% endfor %}
+  
 </tbody>
 
 
@@ -113,7 +103,7 @@
                             </div>
                             <div class="row mt-4 d-flex align-items-center">
                                 <div class="col-sm-6 order-md-2 text-right">
-                                    <a href="index.html" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                                    <a href="/shop/" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
                         <a href="/shop/">
