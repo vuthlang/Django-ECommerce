@@ -22,11 +22,6 @@ def product_view(request, product_id):
     return render(request, 'index_detail.html', {'product': product})
 
 
-def related_products(request):
-    products = Product.objects.order_by('?')
-    context = {'products': products}
-    return render(request, 'related_products.html', context)
-
 
 def cart(request):
   return render(request, 'cart.html')
